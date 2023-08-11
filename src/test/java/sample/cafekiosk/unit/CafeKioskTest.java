@@ -3,8 +3,6 @@ package sample.cafekiosk.unit;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class CafeKioskTest {
 
     // 테스트가 성공하지만, 아래를 자동화된 테스트라고 할 수 있을까? 이 테스트는 수동적인 테스트라 볼 수 있다.
