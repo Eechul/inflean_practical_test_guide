@@ -1,14 +1,12 @@
 package sample.cafekiosk.unit.order;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import sample.cafekiosk.unit.beverage.Beverage;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Setter
+@Getter
 @RequiredArgsConstructor
 public class Order {
 
