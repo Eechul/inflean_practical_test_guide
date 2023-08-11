@@ -3,6 +3,9 @@ package sample.cafekiosk.unit;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
+import sample.cafekiosk.unit.order.Order;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -39,7 +42,7 @@ class CafeKioskTest {
     void addSeveralBeverage() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
-        
+
         cafeKiosk.add(americano, 2);
         assertThat(cafeKiosk.getBeverages()).hasSize(2);
         assertThat(cafeKiosk.getBeverages().get(0).getName()).isEqualTo("아메리카노");
@@ -95,5 +98,39 @@ class CafeKioskTest {
 
         cafeKiosk.clear();
         assertThat(cafeKiosk.getBeverages()).isEmpty();
+    }
+
+    // 현재시간을 가지고 예외를 던지는 로직이 존재하여 테스트에 어려움이 있는 상황(현재시간에 따라 테스트가 달라짐)
+//    @Test
+//    void createOrder() {
+//        CafeKiosk cafeKiosk = new CafeKiosk();
+//        cafeKiosk.add(new Americano());
+//
+//        Order order = cafeKiosk.createOrder();
+//        assertThat(order.getBeverages()).hasSize(1);
+//        assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
+//    }
+
+    // 현재시간은 계속해서 변한다. 따라서 이 값은 앞에서 봤던 경계값을 고려해 '직접' 할당해준다면
+    // 계속해서 변하지 않고, 테스트를 이어나갈 수 있다.
+    @Test
+    void createOrderWithCurrentTime() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        cafeKiosk.add(new Americano());
+
+        // 외부 세계(여기서는 상위레벨 메서드)에서 파라미터로 '직접' 전달
+        Order order = cafeKiosk.createOrder(LocalDateTime.of(2023, 8, 11, 10, 0));
+        assertThat(order.getBeverages()).hasSize(1);
+        assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
+    }
+
+    @Test
+    void createOrderWithOutsideOpenTime() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        cafeKiosk.add(new Americano());
+
+        assertThatThrownBy(() -> cafeKiosk.createOrder(LocalDateTime.of(2023, 8, 11, 23, 0)))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("주문 시간이 아닙니다. 관리자에게 문의해주세요.");
     }
 }
