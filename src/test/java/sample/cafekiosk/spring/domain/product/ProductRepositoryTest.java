@@ -24,32 +24,13 @@ class ProductRepositoryTest {
     @Test
     void findAllBySellingStatusIn() {
         // given
-        Product product1 = Product.builder()
-                .productNumber("001")
-                .type(HANDMADE)
-                .sellingStatus(SELLING)
-                .name("아메리카노")
-                .price(4000)
-                .build();
-        Product product2 = Product.builder()
-                .productNumber("002")
-                .type(HANDMADE)
-                .sellingStatus(HOLD)
-                .name("카페라떼")
-                .price(4500)
-                .build();
-        Product product3 = Product.builder()
-                .productNumber("003")
-                .type(HANDMADE)
-                .sellingStatus(STOP_SELLING)
-                .name("팥빙수")
-                .price(7000)
-                .build();
+        Product product1 = createProduct("001", HANDMADE, SELLING, "아메리카노", 4000);
+        Product product2 = createProduct("002", HANDMADE, HOLD, "카페라떼", 4500);
+        Product product3 = createProduct("003", HANDMADE, STOP_SELLING, "팥빙수", 7000);
         productRepository.saveAll(List.of(product1, product2, product3));
 
         // when
         List<Product> products = productRepository.findAllBySellingStatusIn(List.of(SELLING, HOLD));
-
 
         // then
         assertThat(products).hasSize(2)
@@ -58,5 +39,37 @@ class ProductRepositoryTest {
                         tuple("001", "아메리카노", SELLING),
                         tuple("002", "카페라떼", HOLD)
                 );
+    }
+
+    @DisplayName("상품번호 리스트로 상품들을 조회한다.")
+    @Test
+    void findAllByProductNumberIn() {
+        // given
+        Product product1 = createProduct("001", HANDMADE, SELLING, "아메리카노", 4000);
+        Product product2 = createProduct("002", HANDMADE, HOLD, "카페라떼", 4500);
+        Product product3 = createProduct("003", HANDMADE, STOP_SELLING, "팥빙수", 7000);
+        productRepository.saveAll(List.of(product1, product2, product3));
+
+        // when
+        List<Product> products = productRepository.findAllByProductNumberIn(List.of("001", "002", "003"));
+
+        // then
+        assertThat(products).hasSize(3)
+                .extracting("productNumber", "name", "price")
+                .containsExactlyInAnyOrder(
+                        tuple("001", "아메리카노", 4000),
+                        tuple("002", "카페라떼", 4500),
+                        tuple("003", "팥빙수", 7000)
+                );
+    }
+
+    private Product createProduct( String productNumber, ProductType type, ProductSellingStatus sellingStatus, String productName, int price) {
+        return Product.builder()
+                .productNumber(productNumber)
+                .type(type)
+                .sellingStatus(sellingStatus)
+                .name(productName)
+                .price(price)
+                .build();
     }
 }
