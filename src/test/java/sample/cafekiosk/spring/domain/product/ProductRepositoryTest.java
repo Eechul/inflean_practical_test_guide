@@ -10,6 +10,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.*;
+import static sample.cafekiosk.spring.domain.product.ProductType.*;
 
 @ActiveProfiles("test")
 //@SpringBootTest
@@ -25,21 +26,21 @@ class ProductRepositoryTest {
         // given
         Product product1 = Product.builder()
                 .productNumber("001")
-                .type(ProductType.HANDMADE)
+                .type(HANDMADE)
                 .sellingStatus(SELLING)
                 .name("아메리카노")
                 .price(4000)
                 .build();
         Product product2 = Product.builder()
                 .productNumber("002")
-                .type(ProductType.HANDMADE)
+                .type(HANDMADE)
                 .sellingStatus(HOLD)
                 .name("카페라떼")
                 .price(4500)
                 .build();
         Product product3 = Product.builder()
                 .productNumber("003")
-                .type(ProductType.HANDMADE)
+                .type(HANDMADE)
                 .sellingStatus(STOP_SELLING)
                 .name("팥빙수")
                 .price(7000)
