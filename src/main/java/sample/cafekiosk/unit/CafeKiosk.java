@@ -38,12 +38,16 @@ public class CafeKiosk {
         beverages.clear();
     }
 
+    // 섹션3: TDD 강의 예제
     public int calculate() {
-        int totalPrice = 0;
-        for (Beverage beverage : beverages) {
-            totalPrice += beverage.getPrice();
-        }
-        return totalPrice;
+//        int totalPrice = 0;
+//        for (Beverage beverage : beverages) {
+//            totalPrice += beverage.getPrice();
+//        }
+        // 아래 코드로 리팩토링을 진행. TDD 방식의 관점을 이용하면[테스트 -> 기능] 리팩토링도 손쉽게, 과감히 가능하다.
+        return beverages.stream()
+            .mapToInt(Beverage::getPrice)
+            .sum();
     }
 
     public Order createOrder() {
