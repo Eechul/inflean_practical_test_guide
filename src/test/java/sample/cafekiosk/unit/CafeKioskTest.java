@@ -100,6 +100,24 @@ class CafeKioskTest {
         assertThat(cafeKiosk.getBeverages()).isEmpty();
     }
 
+    // TDD 강의 예제
+    // RED - GREEN - REFACTORING 의 순서대로 TDD를 진행한다.
+    // 기능 구현 후, 테스트를 작성하는게 아니라, 테스트를 작성한 후 기능 구현을 하는 방식이다.(클라이언트 관점의 변환)
+    // 이러한 관점 변환은 해피 케이스, 예외 케이스를 좋치지 않게 해준다.
+    // 피드백도 빠르게 받을 수 있다.
+    @Test
+    void calculate() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        Latte latte = new Latte();
+
+        cafeKiosk.add(americano);
+        cafeKiosk.add(latte);
+
+        int totalPrice = cafeKiosk.calculate();
+        assertThat(totalPrice).isEqualTo(8500);
+    }
+
     // 현재시간을 가지고 예외를 던지는 로직이 존재하여 테스트에 어려움이 있는 상황(현재시간에 따라 테스트가 달라짐)
 //    @Test
 //    void createOrder() {
