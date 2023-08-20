@@ -32,7 +32,7 @@ public class OrderProduct extends BaseEntity {
         this.product = product;
     }
 
-    public static OrderProduct create(Product product, Order order) {
+    public static OrderProduct create(Order order, Product product) {
         return new OrderProduct(order, product);
     }
 }

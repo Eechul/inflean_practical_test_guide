@@ -47,7 +47,7 @@ class OrderControllerTest {
         LocalDateTime now = LocalDateTime.now();
         Product product001 = createProduct("001", ProductType.HANDMADE, ProductSellingStatus.SELLING, "아메리카노", 40000);
 
-        Order order = new Order(List.of(product001), now);
+        Order order = Order.create(List.of(product001), now);
         OrderResponse orderResponse = OrderResponse.of(order);
 
 //        when(orderService.createOrder(request, now)).thenReturn(OrderResponse.of());
