@@ -1,6 +1,7 @@
 package sample.cafekiosk.spring.domain.order;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ class OrderRepositoryTest {
     @Autowired
     private OrderRepository orderRepository;
 
+//    @Disabled 테스트를 ignore 하는방법!
     @DisplayName("시작날짜와 끝날짜, '주문생성' 상태로 주문을 조회한다.")
     @Test
     void findOrdersBy1() {
@@ -38,7 +40,7 @@ class OrderRepositoryTest {
         orderRepository.saveAll(List.of(order1, order2, order3));
 
         // when
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.of(2023, 8, 20);
         List<Order> orders = orderRepository.findOrdersBy(today.atStartOfDay(), today.plusDays(1).atStartOfDay(), OrderStatus.INIT);
 
         // then
