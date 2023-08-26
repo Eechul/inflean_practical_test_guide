@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import sample.cafekiosk.spring.ControllerTestSupport;
+import sample.cafekiosk.spring.api.controller.product.request.ProductCreateRequest;
 import sample.cafekiosk.spring.api.service.product.ProductService;
 import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
@@ -37,7 +38,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProduct() throws Exception {
         // given
-        ProductResponse request = ProductResponse.builder()
+        ProductCreateRequest request = ProductCreateRequest.builder()
                 .type(HANDMADE)
                 .sellingStatus(SELLING)
                 .name("아메리카노")
@@ -58,7 +59,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductWithoutType() throws Exception {
         // given
-        ProductResponse request = ProductResponse.builder()
+        ProductCreateRequest request = ProductCreateRequest.builder()
                 .sellingStatus(SELLING)
                 .name("아메리카노")
                 .price(4000)
@@ -83,7 +84,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductWithoutSellingStatus() throws Exception {
         // given
-        ProductResponse request = ProductResponse.builder()
+        ProductCreateRequest request = ProductCreateRequest.builder()
                 .type(HANDMADE)
                 .name("아메리카노")
                 .price(4000)
@@ -108,7 +109,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductWithoutName() throws Exception {
         // given
-        ProductResponse request = ProductResponse.builder()
+        ProductCreateRequest request = ProductCreateRequest.builder()
                 .type(HANDMADE)
                 .sellingStatus(SELLING)
                 .price(4000)
@@ -133,7 +134,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductWithZeroPrice() throws Exception {
         // given
-        ProductResponse request = ProductResponse.builder()
+        ProductCreateRequest request = ProductCreateRequest.builder()
                 .type(HANDMADE)
                 .sellingStatus(SELLING)
                 .name("아메리카노")
